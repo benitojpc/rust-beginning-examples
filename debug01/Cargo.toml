@@ -18,3 +18,11 @@ path          = "src/examples/polars/polars-csv-main.rs"
 [[example]]
 name        = "csv-read-files"
 path          = "src/examples/csv/csv-read-files.rs"
+
+[[example]]
+name        = "csv-to-struct"
+path          = "src/examples/csv/csv-to-struct.rs"
+
+[[example]]
+name        = "stdin-test"
+path          = "src/examples/stdin/stdin-test.rs"
