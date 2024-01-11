@@ -18,6 +18,8 @@ struct SalaryRecord {
     company_size: String,
 } 
 
+#[allow(dead_code)]
+#[allow(unused_variables)]
 fn example_01() -> Result< (), Box<dyn std::error::Error> > {
     let ruta_file : String = String::from("csvs/salaries.csv") ; 
     let fopen = std::fs::File::open( ruta_file )?;
@@ -34,7 +36,40 @@ fn example_01() -> Result< (), Box<dyn std::error::Error> > {
     Ok(())
 }
 
+// using serde
+#[allow(dead_code)]
+#[allow(unused_variables)]
+fn example_02() -> Result< (), Box<dyn std::error::Error> >  {
+    let ruta_file : String = String::from("csvs/salaries.csv") ; 
+    let fopen = std::fs::File::open( ruta_file )?;
+    let mut rdr = csv::Reader::from_reader( fopen );
+
+    let mut contador = 0;
+    let tope = 5;
+    for record in rdr.deserialize() {
+        if contador < tope {
+            let record : SalaryRecord = record?;
+            println!( "{} {} {} {} {} {} {} {} {} {} {} ",
+                        record.work_year,
+                        record.experience_level,
+                        record.employment_type,
+                        record.job_title,
+                        record.salary,
+                        record.salary_currency,
+                        record.salary_in_usd,
+                        record.employee_residence,
+                        record.remote_ratio,
+                        record.company_location,
+                        record.company_size);
+            contador += 1;
+        }
+    }
+
+    Ok(())
+}
+
 fn main() {
-    let result = example_01();
+    //let result = example_01();
+    let result = example_02();
     println!( "{:?}", result );
 }
